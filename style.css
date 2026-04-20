@@ -1,0 +1,570 @@
+/* ============================================
+   SAP Analytics Cloud - Style System
+   Sales Forecasting Dashboard
+   Author: Rohan Kumar Thakur
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --sap-blue: #0070f2;
+  --sap-dark-blue: #003d7a;
+  --sap-gold: #f0ab00;
+  --sap-green: #107e3e;
+  --sap-red: #bb0000;
+  --sap-orange: #e76500;
+  --sap-bg: #f5f6f7;
+  --sap-white: #ffffff;
+  --sap-border: #d9dbdd;
+  --sap-text: #32363a;
+  --sap-text-muted: #6a6d70;
+  --sap-header-bg: #003d7a;
+  --sap-toolbar-bg: #ffffff;
+  --chart-bg: #ffffff;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --radius: 6px;
+}
+
+body {
+  font-family: "72", "SAP72", Arial, sans-serif;
+  background-color: var(--sap-bg);
+  color: var(--sap-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.sap-header {
+  background: var(--sap-header-bg);
+  color: white;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.sap-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sap-diamond {
+  color: var(--sap-gold);
+  font-size: 20px;
+}
+
+.sap-brand {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.sap-product-name {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  border-left: 1px solid rgba(255,255,255,0.3);
+  padding-left: 10px;
+  margin-left: 4px;
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+}
+
+.breadcrumb .active {
+  color: rgba(255,255,255,0.95);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-name {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sap-gold);
+  color: var(--sap-dark-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ── Toolbar ── */
+.sac-toolbar {
+  background: var(--sap-white);
+  border-bottom: 1px solid var(--sap-border);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.toolbar-left {
+  display: flex;
+  gap: 4px;
+}
+
+.toolbar-btn {
+  background: none;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--sap-text-muted);
+  transition: all 0.2s;
+}
+
+.toolbar-btn:hover {
+  background: rgba(0,112,242,0.08);
+  color: var(--sap-blue);
+}
+
+.toolbar-btn.active {
+  background: rgba(0,112,242,0.1);
+  color: var(--sap-blue);
+  font-weight: 600;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sac-select {
+  border: 1px solid var(--sap-border);
+  border-radius: var(--radius);
+  padding: 5px 10px;
+  font-size: 13px;
+  color: var(--sap-text);
+  background: white;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sac-select:focus {
+  border-color: var(--sap-blue);
+}
+
+.refresh-btn {
+  background: var(--sap-blue);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+  background: var(--sap-dark-blue);
+}
+
+/* ── Main Content ── */
+.main-content {
+  flex: 1;
+  padding: 20px 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── KPI Cards ── */
+.kpi-section {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  background: var(--sap-white);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-left: 4px solid var(--sap-blue);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.kpi-card:nth-child(2) { border-left-color: var(--sap-green); }
+.kpi-card:nth-child(3) { border-left-color: var(--sap-orange); }
+.kpi-card:nth-child(4) { border-left-color: var(--sap-gold); }
+.kpi-card:nth-child(5) { border-left-color: #6f32be; }
+
+.kpi-icon {
+  font-size: 28px;
+  min-width: 36px;
+}
+
+.kpi-label {
+  font-size: 11px;
+  color: var(--sap-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.kpi-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sap-text);
+  line-height: 1.2;
+}
+
+.kpi-sub {
+  font-size: 11px;
+  color: var(--sap-text-muted);
+  margin-top: 2px;
+}
+
+/* ── Charts Grid ── */
+.charts-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.charts-row:nth-child(even) {
+  grid-template-columns: 1fr 2fr;
+}
+
+.chart-card {
+  background: var(--sap-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.chart-card.wide {
+  /* handled by grid */
+}
+
+.chart-header {
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid var(--sap-border);
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sap-text);
+}
+
+.chart-subtitle {
+  font-size: 11px;
+  color: var(--sap-text-muted);
+  margin-top: 2px;
+}
+
+.chart-body {
+  padding: 16px;
+  height: 280px;
+  position: relative;
+}
+
+.chart-body canvas {
+  max-height: 100%;
+}
+
+/* ── Forecast Section ── */
+.forecast-section {
+  background: var(--sap-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.section-header {
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--sap-dark-blue);
+}
+
+.section-header p {
+  font-size: 12px;
+  color: var(--sap-text-muted);
+  margin-top: 4px;
+}
+
+.forecast-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sap-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sac-select-lg {
+  border: 1px solid var(--sap-border);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-size: 13px;
+  min-width: 180px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sac-select-lg:focus {
+  border-color: var(--sap-blue);
+}
+
+.forecast-btn {
+  background: var(--sap-blue);
+  color: white;
+  border: none;
+  padding: 9px 24px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.forecast-btn:hover {
+  background: var(--sap-dark-blue);
+}
+
+.forecast-btn:active {
+  transform: scale(0.98);
+}
+
+.forecast-chart-wrapper {
+  height: 360px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.forecast-chart-wrapper canvas {
+  max-height: 100%;
+}
+
+/* ── Forecast Table ── */
+.forecast-table-wrapper {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.sac-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.sac-table thead tr {
+  background: var(--sap-blue);
+  color: white;
+}
+
+.sac-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+.sac-table tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.sac-table tbody tr:hover {
+  background: rgba(0,112,242,0.05);
+}
+
+.sac-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--sap-border);
+  color: var(--sap-text);
+}
+
+.confidence-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.confidence-high { background: #d4edda; color: #155724; }
+.confidence-med  { background: #fff3cd; color: #856404; }
+.confidence-low  { background: #f8d7da; color: #721c24; }
+
+/* ── Metrics Section ── */
+.metrics-section {
+  background: var(--sap-white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.metric-card {
+  border: 1px solid var(--sap-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: #f8fafc;
+}
+
+.metric-product {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sap-dark-blue);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--sap-border);
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.metric-row-label {
+  color: var(--sap-text-muted);
+}
+
+.metric-row-value {
+  font-weight: 600;
+  color: var(--sap-text);
+}
+
+.metric-loading {
+  color: var(--sap-text-muted);
+  font-size: 13px;
+  padding: 20px;
+}
+
+/* ── Loading State ── */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,112,242,0.2);
+  border-top-color: var(--sap-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Footer ── */
+.sac-footer {
+  background: var(--sap-header-bg);
+  color: rgba(255,255,255,0.65);
+  font-size: 11px;
+  padding: 10px 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .kpi-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .charts-row, .charts-row:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .kpi-section {
+    grid-template-columns: 1fr 1fr;
+  }
+  .toolbar-right {
+    display: none;
+  }
+}
+
+/* ── No backend mode: demo data notice ── */
+.demo-banner {
+  background: #fff8e1;
+  border: 1px solid #f0ab00;
+  color: #5a4000;
+  font-size: 12px;
+  padding: 8px 20px;
+  text-align: center;
+}
