@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sales Forecasting & Demand Prediction | SAP Analytics Cloud</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- SAP Header -->
+  <header class="sap-header">
+    <div class="header-left">
+      <div class="sap-logo">
+        <span class="sap-diamond">◆</span>
+        <span class="sap-brand">SAP</span>
+        <span class="sap-product-name">Analytics Cloud</span>
+      </div>
+      <div class="breadcrumb">
+        <span>Home</span> › <span>Stories</span> › <span class="active">Sales Forecasting Dashboard</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="user-info">
+        <span class="user-name">Rohan Kumar Thakur</span>
+        <div class="user-avatar">RK</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Toolbar -->
+  <div class="sac-toolbar">
+    <div class="toolbar-left">
+      <button class="toolbar-btn active" onclick="setView('dashboard')">📊 Dashboard</button>
+      <button class="toolbar-btn" onclick="setView('forecast')">📈 Forecast</button>
+      <button class="toolbar-btn" onclick="setView('analysis')">🔍 Analysis</button>
+    </div>
+    <div class="toolbar-right">
+      <select class="sac-select" id="regionFilter" onchange="applyFilters()">
+        <option value="">All Regions</option>
+        <option value="North">North</option>
+        <option value="South">South</option>
+        <option value="East">East</option>
+        <option value="West">West</option>
+        <option value="Central">Central</option>
+      </select>
+      <select class="sac-select" id="productFilter" onchange="applyFilters()">
+        <option value="">All Products</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Home_Appliances">Home Appliances</option>
+        <option value="Food_Beverages">Food & Beverages</option>
+        <option value="Furniture">Furniture</option>
+      </select>
+      <button class="refresh-btn" onclick="loadAllData()">↻ Refresh</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- KPI Cards -->
+    <section class="kpi-section" id="kpiSection">
+      <div class="kpi-card">
+        <div class="kpi-icon">💰</div>
+        <div class="kpi-info">
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-value" id="totalRevenue">Loading...</div>
+          <div class="kpi-sub">All Time</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">📦</div>
+        <div class="kpi-info">
+          <div class="kpi-label">Units Sold</div>
+          <div class="kpi-value" id="totalUnits">Loading...</div>
+          <div class="kpi-sub">All Time</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">📅</div>
+        <div class="kpi-info">
+          <div class="kpi-label">Avg Weekly Revenue</div>
+          <div class="kpi-value" id="avgWeekly">Loading...</div>
+          <div class="kpi-sub">Per Week</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🏆</div>
+        <div class="kpi-info">
+          <div class="kpi-label">Best Product</div>
+          <div class="kpi-value" id="bestProduct">Loading...</div>
+          <div class="kpi-sub">By Revenue</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🌍</div>
+        <div class="kpi-info">
+          <div class="kpi-label">Best Region</div>
+          <div class="kpi-value" id="bestRegion">Loading...</div>
+          <div class="kpi-sub">By Revenue</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts Row 1 -->
+    <div class="charts-row" id="dashboardView">
+
+      <!-- Monthly Revenue Trend -->
+      <div class="chart-card wide">
+        <div class="chart-header">
+          <div class="chart-title">Monthly Revenue Trend</div>
+          <div class="chart-subtitle">Historical sales performance over time</div>
+        </div>
+        <div class="chart-body">
+          <canvas id="monthlyTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Regional Breakdown -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Revenue by Region</div>
+          <div class="chart-subtitle">Geographic distribution</div>
+        </div>
+        <div class="chart-body">
+          <canvas id="regionChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Charts Row 2 -->
+    <div class="charts-row">
+
+      <!-- Top Products Bar -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Top Products by Revenue</div>
+          <div class="chart-subtitle">All-time performance ranking</div>
+        </div>
+        <div class="chart-body">
+          <canvas id="topProductsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Weekly Sales -->
+      <div class="chart-card wide">
+        <div class="chart-header">
+          <div class="chart-title">Weekly Sales (Last 52 Weeks)</div>
+          <div class="chart-subtitle">Recent revenue and units trend</div>
+        </div>
+        <div class="chart-body">
+          <canvas id="weeklyChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Forecast Section -->
+    <div class="forecast-section">
+      <div class="section-header">
+        <h2>📈 Demand Prediction & Forecasting</h2>
+        <p>AI-powered sales forecast using ARIMA time-series model</p>
+      </div>
+
+      <div class="forecast-controls">
+        <div class="control-group">
+          <label>Product Category</label>
+          <select id="forecastProduct" class="sac-select-lg">
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Home_Appliances">Home Appliances</option>
+            <option value="Food_Beverages">Food & Beverages</option>
+            <option value="Furniture">Furniture</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Forecast Weeks</label>
+          <select id="forecastWeeks" class="sac-select-lg">
+            <option value="4">4 Weeks</option>
+            <option value="8">8 Weeks</option>
+            <option value="12" selected>12 Weeks</option>
+            <option value="24">24 Weeks</option>
+          </select>
+        </div>
+        <button class="forecast-btn" onclick="runForecast()">Run Forecast →</button>
+      </div>
+
+      <div class="forecast-chart-wrapper">
+        <canvas id="forecastChart"></canvas>
+      </div>
+
+      <div class="forecast-table-wrapper" id="forecastTable" style="display:none">
+        <table class="sac-table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Forecast Date</th>
+              <th>Predicted Revenue (₹)</th>
+              <th>Lower Bound (₹)</th>
+              <th>Upper Bound (₹)</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody id="forecastTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Model Metrics -->
+    <div class="metrics-section">
+      <div class="section-header">
+        <h2>🎯 Model Accuracy Metrics</h2>
+        <p>Evaluation of ARIMA & Linear Regression models</p>
+      </div>
+      <div class="metrics-grid" id="metricsGrid">
+        <div class="metric-loading">Loading metrics...</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="sac-footer">
+    <span>Sales Forecasting & Demand Prediction System</span>
+    <span>|</span>
+    <span>Rohan Kumar Thakur | Roll No: 2330332 | Batch: 2023-2027</span>
+    <span>|</span>
+    <span>SAP Analytics Cloud | Data Analytics</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
